@@ -1,13 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/WildPa1/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_AdventOfCode.1236205218/Snapshot/snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0be6cc65_002D3447_002D434c_002Dad14_002Ddf6b439eea4c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PartTwo_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day01Tests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Project Location="/Users/WildPa/Source/scratch/advent-of-code-2023/AdventOfCode.Tests" Presentation="&amp;lt;AdventOfCode.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0e9e644b_002Dc599_002D41d5_002D9a0b_002D87f3be5bd157/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartTwo_WhenCalled_ShouldWork" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Not&gt;
