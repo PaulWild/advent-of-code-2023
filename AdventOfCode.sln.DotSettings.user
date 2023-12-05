@@ -1,53 +1,23 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=BC338660_002D6106_002D4B6A_002DB513_002D42C03DC196FC_002Ff_003AOutput_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/WildPa1/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_AdventOfCode.1236205218/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0be6cc65_002D3447_002D434c_002Dad14_002Ddf6b439eea4c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PartTwo_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/WildPa/Source/scratch/advent-of-code-2023/AdventOfCode.Tests" Presentation="&amp;lt;AdventOfCode.Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0e9e644b_002Dc599_002D41d5_002D9a0b_002D87f3be5bd157/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartTwo_WhenCalled_ShouldWork" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Not&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net7.0::AdventOfCode.Tests.Days.Day08Tests&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/Not&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=35b60d34_002D0584_002D46d6_002D9254_002Deb965f949c40/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=21a9ee0f_002Db7ae_002D4877_002D9b6b_002Dea9f24d8dd2e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day01Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=40656208_002Df4f6_002D416f_002Db721_002D49a69d9c6c5d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartTwo_WhenCalled_WorksWithExampleThree" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/WildPa1/source/Scratch/advent-of-code-2022/AdventOfCode.Tests" Presentation="&amp;lt;AdventOfCode.Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8409b418_002Da31d_002D4bb2_002D9daa_002Db4c9efa19d26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96f4c5ec_002Dd656_002D4cf5_002Db6fc_002Dd8fe600cdd9b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;And&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day01Tests&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day03Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/And&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b3c64adb_002Df23f_002D4d68_002Db5c6_002Da9d7cb505d9b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net7.0::AdventOfCode.Tests.Days.Day07Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cd5e12a3_002D092c_002D4e78_002D986b_002D6c6101b47194/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day01Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
