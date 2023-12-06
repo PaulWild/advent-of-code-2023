@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Days;
@@ -42,21 +43,17 @@ public partial class Day06 : ISolution
 
     private static long CalculateNumberWaysToBeatRace((long time, long distance) race)
     {
-        var numberBeaten = 0;
+        var a = (long)-1;
+        var b = race.time;
+        var c = -(race.distance+1);
 
-        for (var i = 0; i < race.time; i++)
-        {
-            var remainingTime = race.time - i;
-            var distanceTraveled = i * remainingTime;
+        var sqrt = Math.Sqrt((b * b) - (4 * a * c));
 
-            if (distanceTraveled > race.distance)
-            {
-                numberBeaten++;
-            }
+        var b1 = Math.Ceiling((-b + sqrt) / (2 * a));
+        var b2 = Math.Floor((-b - sqrt) / (2 * a));
+        var diff = (long)Math.Round(Math.Abs(b1 - b2));
 
-        }
-
-        return numberBeaten;
+        return diff+1;
     }
     
     public int Day => 06;
@@ -64,3 +61,5 @@ public partial class Day06 : ISolution
     [GeneratedRegex("\\d+")]
     private static partial Regex AllNumbersRegex();
 }
+
+
