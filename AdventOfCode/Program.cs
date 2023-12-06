@@ -100,7 +100,7 @@ static void PrintSolution(int part, string answer, long timeInMillis)
         .Run();
     
     var icon = timeInMillis > 50
-        ? "\u231B" 
+        ? "\u231B " 
         : "";
     
     var timeColor = timeInMillis > 50  
