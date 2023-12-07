@@ -2,14 +2,20 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=BC338660_002D6106_002D4B6A_002DB513_002D42C03DC196FC_002Ff_003AOutput_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/WildPa1/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_AdventOfCode.1236205218/Snapshot/snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=21a9ee0f_002Db7ae_002D4877_002D9b6b_002Dea9f24d8dd2e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day06Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day06Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Or&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day02Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day05Tests.PartTwo_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day06Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day06Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day07Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day07Tests.Ordering&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day07Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;ProjectFile&gt;B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4/d:Days/f:Day07Tests.cs&lt;/ProjectFile&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	
