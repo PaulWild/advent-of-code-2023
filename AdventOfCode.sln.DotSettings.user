@@ -30,8 +30,15 @@
       &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
       &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartTwo_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
       &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartOne_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
   &lt;/Or&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d0c68f38_002D1997_002D494b_002Da9ac_002D5e124da1e6c4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_DoesNotThrowNotImplementedException" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartOne_WhenCalled_DoesNotThrowNotImplementedException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d9e37d4d_002Da56e_002D4c6f_002Da993_002D9cbb9ca8d089/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PartOne_WhenCalled_ReturnsCorrectTestAnswer #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
@@ -41,6 +48,7 @@
     &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day10Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day11Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day13Tests.PartOne_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B8EDE237-FA5F-4415-B5C1-2E0D76B3CFC4::net8.0::AdventOfCode.Tests.Days.Day12Tests.PartTwo_WhenCalled_ReturnsCorrectTestAnswer&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	

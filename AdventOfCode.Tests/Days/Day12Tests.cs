@@ -11,7 +11,9 @@ public class Day12Tests
     
     private readonly string[] _testData =
     {
-        "?#?#?#?#?#?#?#? 1,3,1,6"
+        "?#????????????##?? 1,1,10",
+
+     
     };
 
 
@@ -20,15 +22,22 @@ public class Day12Tests
     {
         Action act = () => _sut.PartOne(_sut.Input());
 
-        act.Should().NotThrow<NotImplementedException>();
+        act.Should().NotThrow();
     }
     
-    [Fact]
-    public void PartOne_WhenCalled_ReturnsCorrectTestAnswer()
+    [Theory]
+    [InlineData("???.### 1,1,3", "1")]
+    [InlineData(".??..??...?##. 1,1,3", "4")]
+    [InlineData("?#?#?#?#?#?#?#? 1,3,1,6", "1")]
+    [InlineData("????.#...#... 4,1,1", "1")]
+    [InlineData("????.######..#####. 1,6,5", "4")]
+    [InlineData("?###???????? 3,2,1", "10")]
+    [InlineData("#??????# 1,1", "1")]
+    public void PartOne_WhenCalled_ReturnsCorrectTestAnswer(string input, string expected)
     {
-        var actual = _sut.PartOne(_testData);
+        var actual = _sut.PartOne([input]);
 
-        actual.Should().Be("1");
+        actual.Should().Be(expected);
     }
 
 
@@ -40,11 +49,13 @@ public class Day12Tests
         act.Should().NotThrow<NotImplementedException>();
     }
     
-    [Fact]
-    public void PartTwo_WhenCalled_ReturnsCorrectTestAnswer()
+    [Theory]
+    [InlineData("?##?.#????#.? 3,2,1,1", "1")]
+    public void PartTwo_WhenCalled_ReturnsCorrectTestAnswer(string input, string expected)
     {
         var actual = _sut.PartTwo(_testData);
 
-        actual.Should().Be("1");
+        actual.Should().Be(expected);
     }
+
 }

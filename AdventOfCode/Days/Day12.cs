@@ -2,137 +2,104 @@ using System.Text;
 
 namespace AdventOfCode.Days;
 
-public class Day12 : ISolution
-{ 
-    record InputRow(string row, List<int> hasSizes);
-    public string PartOne(IEnumerable<string> input)
+public class ConditionRecord
+{
+    private readonly List<int> _springConditions;
+    private readonly string _condition;
+    private readonly char[] _conditionArray;
+    private int Bag => _condition.Length - Taken;
+
+    private int Taken => _springConditions.Sum();
+
+    public ConditionRecord(string inputRow, int part = 1)
     {
-        var rows = (from row in input 
-            select row.Split(' ') into split 
-            let numbers = split[1].Split(',').Select(x => Convert.ToInt32(x)).ToList() 
-            select new InputRow(split[0], numbers)).ToList();
-
-        var totalArrangements = 0;
-        foreach (var row in rows)
-        {
-            var taken = row.hasSizes.Sum();
-            var combos = Combinations(row.row.Length - taken, row.hasSizes.Count + 1);
-
-            var foo = combos.Where(x => x.Count > row.hasSizes.Count - 2).SelectMany(x =>
-            {
-                if (x.Count == row.hasSizes.Count)
-                {
-                    return new List<List<int>>
-                    {
-                        x.Append(0).ToList(),
-                        x.Prepend(0).ToList()
-                    };
-                }
-
-                if (x.Count == row.hasSizes.Count + 1)
-                {
-                    return new List<List<int>>
-                    {
-                        x
-                    };
-                }
-
-                if (x.Count == row.hasSizes.Count - 1)
-                {
-                    return new List<List<int>>
-                    {
-                        x.Append(0).Prepend(0).ToList()
-                    };
-                }
-
-                return new List<List<int>>();
-            }).ToList();
-
-            var tests = new List<string>();
-            foreach (var spaces in foo)
-            {
-                var sb = new StringBuilder();
-                sb.Append(string.Join("",Enumerable.Repeat('.', spaces[0])));
-                for (int i = 0; i < row.hasSizes.Count; i++)
-                {
-                    sb.Append(string.Join("", Enumerable.Repeat('#', row.hasSizes[i])));
-                    sb.Append(string.Join("", Enumerable.Repeat('.', spaces[i+1])));
-                }
-                sb.Append(string.Join("",Enumerable.Repeat('.', spaces.Last())));
-                
-                tests.Add(sb.ToString());
-            }
-
-            var arrangements = 0;
-            var inputArray = row.row.ToCharArray();
-            foreach (var test in tests)
-            {
-                var testArray = test.ToCharArray();
-
-                var isMatch = true;
-                for (int i = 0; i < inputArray.Length; i++)
-                {
-                    if (inputArray[i] == '?')
-                    {
-                        continue;
-                    }
-
-                    if (inputArray[i] == testArray[i])
-                    {
-                        continue;
-                    }
-
-                    isMatch = false;
-                }
-
-                if (isMatch)
-                {
-                    arrangements++;
-                }
-
-            }
-
-            totalArrangements += arrangements;
-        }
-
-        return totalArrangements.ToString();
+        var repeat = part == 1 ? 1 : 5;
+        var split = inputRow.Split(' ');
+        var numbers = split[1].Split(',').Select(x => Convert.ToInt32(x)).ToList();
+        _springConditions = Enumerable.Repeat(numbers, repeat).SelectMany(x => x).ToList();
+        _condition = string.Join('?', Enumerable.Repeat(split[0], repeat));
+        _conditionArray = _condition.ToCharArray();
     }
 
-    public IEnumerable<List<int>> Combinations(int bag, int maximumCombos)
+    private IEnumerable<List<int>> Combinations()
     {
-        return Combinations(new List<int>(), bag, maximumCombos);
+        return Combinations(new List<int>(), Bag);
     }
-    public IEnumerable<List<int>> Combinations(List<int> combos, int bag, int maximumCombos)
+
+    private (bool valid, bool isFull) IsValid(List<int> gaps, bool includeNextHashes =true)
     {
-        var minCombos = maximumCombos - 3;
+        var sb = new StringBuilder();
 
-        if (bag < minCombos - combos.Count)
+        for (var i = 0; i < gaps.Count; i++)
         {
-            yield break;
+            sb.Append(string.Join("", Enumerable.Repeat('.', gaps[i])));
+            if (_springConditions.Count > i || (gaps.Count == i-1 && includeNextHashes))
+            {
+                sb.Append(string.Join("", Enumerable.Repeat('#', _springConditions[i])));
+            }
         }
         
-        if (combos.Count > maximumCombos)
-        {
-            yield break;
-        }
-            
-        
 
+        var str = sb.ToString();
+
+        var testArray = str.ToCharArray();
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (_conditionArray[i] == '?')
+            {
+                continue;
+            }
+
+            if (_conditionArray[i] == testArray[i])
+            {
+                continue;
+            }
+
+            return (false, false);
+        }
+        
+        return (true, gaps.Count >=_springConditions.Count && _conditionArray.Skip(str.Length).All(x => x is '?' or '.'));
+    }
+
+    private IEnumerable<List<int>> Combinations(List<int> combos, int bag)
+    {
+        var (isValid, fullValid) = IsValid(combos);
         switch (bag)
         {
             case 0:
-                yield return combos;
+                if (isValid && fullValid)
+                {
+                    yield return combos;
+                }
                 break;
             default:
             {
-                foreach (var taken in Enumerable.Range(1, bag))
+                var start = combos.Count == 0 ? 0 : 1;
+                
+                if (isValid && fullValid)
                 {
-                    var newCombos = combos.Select(x => x).ToList();
-                    newCombos.Add(taken);
-                    var newNewCombos = Combinations(newCombos, bag - taken, maximumCombos);
-                    foreach (var newCombo in newNewCombos)
+                    yield return combos;
+                }
+                else if (combos.Count == 0 || isValid)
+                {
+                    foreach (var taken in Enumerable.Range(start, bag))
                     {
-                        yield return newCombo;
+                        var newCombos = combos.Select(x => x).ToList();
+                        newCombos.Add(taken);
+
+                        if (!IsValid(newCombos, false).valid)
+                        {
+                            break;
+                        }
+                        
+                        var newNewCombos = Combinations(newCombos, bag - taken);
+                        foreach (var newCombo in newNewCombos)
+                        {
+                            yield return newCombo;
+                        }
+                        
+
                     }
                 }
 
@@ -141,101 +108,30 @@ public class Day12 : ISolution
         }
     }
 
+    public int Arrangements()
+    {
+        return Combinations().Count();
+    }
+}
+
+public class Day12 : ISolution
+{ 
+    public string PartOne(IEnumerable<string> input)
+    {
+        return input
+            .Select(x => new ConditionRecord(x, 1))
+            .Select(x => x.Arrangements())
+            .Sum()
+            .ToString();
+    }
+    
     public string PartTwo(IEnumerable<string> input)
     {
-        var rows = (from row in input 
-            select row.Split(' ') into split 
-            let numbers = split[1].Split(',').Select(x => Convert.ToInt32(x)).ToList() 
-            select new InputRow($"{split[0]}?{split[0]}?{split[0]}?{split[0]}?{split[0]}", Enumerable.Repeat(numbers,5).SelectMany(x => x).ToList())).ToList();
-
-        var totalArrangements = 0;
-        foreach (var row in rows)
-        {
-            var taken = row.hasSizes.Sum();
-            var combos = Combinations(row.row.Length - taken, row.hasSizes.Count + 1);
-
-            var foo = combos.Where(x => x.Count > row.hasSizes.Count - 2).SelectMany(x =>
-            {
-                if (x.Count == row.hasSizes.Count)
-                {
-                    return new List<List<int>>
-                    {
-                        x.Append(0).ToList(),
-                        x.Prepend(0).ToList()
-                    };
-                }
-
-                if (x.Count == row.hasSizes.Count + 1)
-                {
-                    return new List<List<int>>
-                    {
-                        x
-                    };
-                }
-
-                if (x.Count == row.hasSizes.Count - 1)
-                {
-                    return new List<List<int>>
-                    {
-                        x.Append(0).Prepend(0).ToList()
-                    };
-                }
-
-                return new List<List<int>>();
-            }).ToList();
-
-            var tests = new List<string>();
-            foreach (var spaces in foo)
-            {
-                var sb = new StringBuilder();
-                sb.Append(string.Join("",Enumerable.Repeat('.', spaces[0])));
-                for (int i = 0; i < row.hasSizes.Count; i++)
-                {
-                    sb.Append(string.Join("", Enumerable.Repeat('#', row.hasSizes[i])));
-                    sb.Append(string.Join("", Enumerable.Repeat('.', spaces[i+1])));
-                }
-                sb.Append(string.Join("",Enumerable.Repeat('.', spaces.Last())));
-                
-                tests.Add(sb.ToString());
-            }
-
-            var arrangements = 0;
-            var inputArray = row.row.ToCharArray();
-            for (var j = 0; j < tests.Count; j++)
-            {
-                var testArray = tests[j].ToCharArray();
-
-                var isMatch = true;
-                for (int i = 0; i < inputArray.Length; i++)
-                {
-                    if (inputArray[i] == '?')
-                    {
-                        continue;
-                    }
-
-                    if (inputArray[i] == testArray[i])
-                    {
-                        continue;
-                    }
-
-                    isMatch = false;
-                    // var failed = string.Join("",inputArray.Take(i));
-                    // tests = tests.Where((x, idx) => idx > j && !x.StartsWith(failed)).ToList();
-                    break;
-                }
-
-                if (isMatch)
-                {
-                    arrangements++;
-                }
-
-
-            }
-
-            totalArrangements += arrangements;
-        }
-
-        return totalArrangements.ToString();
+        return input
+            .Select(x => new ConditionRecord(x, 2))
+            .Select(x => x.Arrangements())
+            .Sum()
+            .ToString();
     }
 
     public int Day => 12;
