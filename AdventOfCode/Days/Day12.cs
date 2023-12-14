@@ -1,4 +1,5 @@
 using System.Text;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Days;
 
@@ -7,6 +8,7 @@ public class ConditionRecord
     private readonly List<int> _springConditions;
     private readonly string _condition;
     private readonly char[] _conditionArray;
+    private int _questionMarks;
     private int Bag => _condition.Length - Taken;
 
     private int Taken => _springConditions.Sum();
@@ -19,32 +21,43 @@ public class ConditionRecord
         _springConditions = Enumerable.Repeat(numbers, repeat).SelectMany(x => x).ToList();
         _condition = string.Join('?', Enumerable.Repeat(split[0], repeat));
         _conditionArray = _condition.ToCharArray();
+        _questionMarks = _conditionArray.Count(x => x == '?');
+        Console.WriteLine(_questionMarks);
     }
 
-    private IEnumerable<List<int>> Combinations()
+    public IEnumerable<List<int>> Combos(List<int> current)
     {
-        return Combinations(new List<int>(), Bag);
-    }
-
-    private (bool valid, bool isFull) IsValid(List<int> gaps, bool includeNextHashes =true)
-    {
-        var sb = new StringBuilder();
-
-        for (var i = 0; i < gaps.Count; i++)
+        if (current.Count == _questionMarks)
         {
-            sb.Append(string.Join("", Enumerable.Repeat('.', gaps[i])));
-            if (_springConditions.Count > i || (gaps.Count == i-1 && includeNextHashes))
+            yield return current;
+        }
+        else
+        {
+
+            var a = Combos(current.Append(0).ToList());
+            var b = Combos(current.Append(1).ToList());
+
+            foreach (var toReturn in a)
             {
-                sb.Append(string.Join("", Enumerable.Repeat('#', _springConditions[i])));
+                yield return toReturn;
+            }
+
+            foreach (var toReturn in b)
+            {
+                yield return toReturn;
             }
         }
+    }
+
+
+    private bool ValidString(string test)
+    {
+        if (test.Length > _condition.Length)
+            return false;
         
-
-        var str = sb.ToString();
-
-        var testArray = str.ToCharArray();
-
-        for (int i = 0; i < str.Length; i++)
+        var testArray = test.ToCharArray();
+        
+        for (int i = 0; i < test.Length; i++)
         {
             if (_conditionArray[i] == '?')
             {
@@ -56,61 +69,57 @@ public class ConditionRecord
                 continue;
             }
 
-            return (false, false);
+            return false;
+        }
+
+        return true;
+    }
+
+    private IEnumerable<string> Combinations(string currentString, List<int> sections)
+    {
+        if (sections.Count == 0 && ValidString(currentString))
+        {
+            yield return currentString;
         }
         
-        return (true, gaps.Count >=_springConditions.Count && _conditionArray.Skip(str.Length).All(x => x is '?' or '.'));
-    }
-
-    private IEnumerable<List<int>> Combinations(List<int> combos, int bag)
-    {
-        var (isValid, fullValid) = IsValid(combos);
-        switch (bag)
+        if (sections.Count == 0)
         {
-            case 0:
-                if (isValid && fullValid)
-                {
-                    yield return combos;
-                }
-                break;
-            default:
+            yield break;
+        }
+        
+        var start = currentString.Length == 0 ? 0 : 1;
+
+        for (int i =start; i < _condition.Length - currentString.Length; i++)
+        {
+            var withGap = currentString + string.Join("", Enumerable.Repeat('.', i));;
+            if (ValidString(withGap))
             {
-                var start = combos.Count == 0 ? 0 : 1;
-                
-                if (isValid && fullValid)
+                var newString = withGap + string.Join("", Enumerable.Repeat('#', sections[0]));
+                foreach (var combination in Combinations(newString, sections.Skip(1).ToList()))
                 {
-                    yield return combos;
+                    yield return combination;
                 }
-                else if (combos.Count == 0 || isValid)
-                {
-                    foreach (var taken in Enumerable.Range(start, bag))
-                    {
-                        var newCombos = combos.Select(x => x).ToList();
-                        newCombos.Add(taken);
-
-                        if (!IsValid(newCombos, false).valid)
-                        {
-                            break;
-                        }
-                        
-                        var newNewCombos = Combinations(newCombos, bag - taken);
-                        foreach (var newCombo in newNewCombos)
-                        {
-                            yield return newCombo;
-                        }
-                        
-
-                    }
-                }
-
-                break;
             }
         }
+        
+        
     }
+    
 
     public int Arrangements()
     {
-        return Combinations().Count();
+        var count = 0;
+        foreach (var (foo, idx) in Combos([]).WithIndex())
+        {
+            if (idx % 10000000 ==0)
+            {
+                Console.WriteLine(idx);
+            }
+            count++;
+        }
+
+        Console.WriteLine(count);
+        return count;
     }
 }
 
