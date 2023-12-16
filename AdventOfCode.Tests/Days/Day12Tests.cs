@@ -32,7 +32,7 @@ public class Day12Tests
     [InlineData("????.#...#... 4,1,1", "1")]
     [InlineData("????.######..#####. 1,6,5", "4")]
     [InlineData("?###???????? 3,2,1", "10")]
-    [InlineData("#??????# 1,1", "1")]
+    [InlineData("#.?# 1,1", "1")]
     public void PartOne_WhenCalled_ReturnsCorrectTestAnswer(string input, string expected)
     {
         var actual = _sut.PartOne([input]);
@@ -49,13 +49,12 @@ public class Day12Tests
         act.Should().NotThrow<NotImplementedException>();
     }
     
-    [Theory]
-    [InlineData("?##?.#????#.? 3,2,1,1", "1")]
-    public void PartTwo_WhenCalled_ReturnsCorrectTestAnswer(string input, string expected)
+    [Fact]
+    public void PartTwo_WhenCalled_ReturnsCorrectTestAnswer()
     {
         var actual = _sut.PartTwo(_testData);
 
-        actual.Should().Be(expected);
+        actual.Should().Be("11880925");
     }
 
 }

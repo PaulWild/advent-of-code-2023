@@ -1,125 +1,76 @@
-using System.Text;
-using AdventOfCode.Common;
-
 namespace AdventOfCode.Days;
 
 public class ConditionRecord
 {
-    private readonly List<int> _springConditions;
-    private readonly string _condition;
+    private readonly List<long> _springConditions;
     private readonly char[] _conditionArray;
-    private int _questionMarks;
-    private int Bag => _condition.Length - Taken;
-
-    private int Taken => _springConditions.Sum();
-
-    public ConditionRecord(string inputRow, int part = 1)
+    
+    public ConditionRecord(string inputRow, long part = 1)
     {
         var repeat = part == 1 ? 1 : 5;
         var split = inputRow.Split(' ');
-        var numbers = split[1].Split(',').Select(x => Convert.ToInt32(x)).ToList();
+        var numbers = split[1].Split(',').Select(x => Convert.ToInt64(x)).ToList();
         _springConditions = Enumerable.Repeat(numbers, repeat).SelectMany(x => x).ToList();
-        _condition = string.Join('?', Enumerable.Repeat(split[0], repeat));
-        _conditionArray = _condition.ToCharArray();
-        _questionMarks = _conditionArray.Count(x => x == '?');
-        Console.WriteLine(_questionMarks);
+        _conditionArray = string.Join('?', Enumerable.Repeat(split[0], repeat)).ToCharArray();
     }
 
-    public IEnumerable<List<int>> Combos(List<int> current)
+    private bool CanPlaceAt(long index, long hashLength)
     {
-        if (current.Count == _questionMarks)
+        if (index + hashLength == _conditionArray.Length)
         {
-            yield return current;
+            return _conditionArray.Skip((int)index).Take((int)hashLength).All(x => x != '.');
         }
-        else
+        if (index + hashLength > _conditionArray.Length)
         {
-
-            var a = Combos(current.Append(0).ToList());
-            var b = Combos(current.Append(1).ToList());
-
-            foreach (var toReturn in a)
-            {
-                yield return toReturn;
-            }
-
-            foreach (var toReturn in b)
-            {
-                yield return toReturn;
-            }
-        }
-    }
-
-
-    private bool ValidString(string test)
-    {
-        if (test.Length > _condition.Length)
-            return false;
-        
-        var testArray = test.ToCharArray();
-        
-        for (int i = 0; i < test.Length; i++)
-        {
-            if (_conditionArray[i] == '?')
-            {
-                continue;
-            }
-
-            if (_conditionArray[i] == testArray[i])
-            {
-                continue;
-            }
-
-            return false;
+            return false; 
         }
 
-        return true;
-    }
-
-    private IEnumerable<string> Combinations(string currentString, List<int> sections)
-    {
-        if (sections.Count == 0 && ValidString(currentString))
-        {
-            yield return currentString;
-        }
-        
-        if (sections.Count == 0)
-        {
-            yield break;
-        }
-        
-        var start = currentString.Length == 0 ? 0 : 1;
-
-        for (int i =start; i < _condition.Length - currentString.Length; i++)
-        {
-            var withGap = currentString + string.Join("", Enumerable.Repeat('.', i));;
-            if (ValidString(withGap))
-            {
-                var newString = withGap + string.Join("", Enumerable.Repeat('#', sections[0]));
-                foreach (var combination in Combinations(newString, sections.Skip(1).ToList()))
-                {
-                    yield return combination;
-                }
-            }
-        }
-        
-        
+        return _conditionArray.Skip((int)index).Take((int)hashLength).All(x => x != '.') 
+               && _conditionArray[index + hashLength] != '#';
     }
     
 
-    public int Arrangements()
+    public long Combinations()
     {
-        var count = 0;
-        foreach (var (foo, idx) in Combos([]).WithIndex())
+        var potentials = new List<(long index, long times)> { (0,1) };
+        
+        foreach (var springCondition in _springConditions)
         {
-            if (idx % 10000000 ==0)
+            var newPotentials = new List<(long index, long times)>();
+            foreach (var (index, times) in potentials)
             {
-                Console.WriteLine(idx);
+                newPotentials.AddRange(FindPotentialSpots(index, springCondition, times));
             }
-            count++;
+
+            potentials = newPotentials
+                .GroupBy(x =>x.index)
+                .Select(key =>  (key.Key, key.Select(x=>x.times).Sum()))
+                .ToList();
         }
 
-        Console.WriteLine(count);
-        return count;
+        return potentials.Where(x => _conditionArray.Skip((int)x.index).All(ch => ch != '#')).Select(x => x.times).Sum();
+
+    }
+
+    private IEnumerable<(long index, long time)> FindPotentialSpots(long index, long springCondition, long combos)
+    
+    {
+        var potentials = new List<long>();
+        while (true)
+        {
+            if (index >= _conditionArray.Length || index > 0 && _conditionArray[index - 1] == '#')
+            {
+                 break;
+            }
+            if (CanPlaceAt(index, springCondition))
+            {
+                potentials.Add(index + springCondition + 1);
+            }
+            index++;
+        } 
+
+        return potentials.GroupBy(x =>x).Select(key =>  (key.Key, key.Count() * combos) );
+
     }
 }
 
@@ -128,8 +79,8 @@ public class Day12 : ISolution
     public string PartOne(IEnumerable<string> input)
     {
         return input
-            .Select(x => new ConditionRecord(x, 1))
-            .Select(x => x.Arrangements())
+            .Select(x => new ConditionRecord(x))
+            .Select(x => x.Combinations())
             .Sum()
             .ToString();
     }
@@ -138,7 +89,7 @@ public class Day12 : ISolution
     {
         return input
             .Select(x => new ConditionRecord(x, 2))
-            .Select(x => x.Arrangements())
+            .Select(x => x.Combinations())
             .Sum()
             .ToString();
     }
