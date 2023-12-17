@@ -67,4 +67,23 @@ public static class Grid
             }
         }
     }
+    public static IEnumerable<(int x, int y)> DirectNeighboursNotBackwards<T>(this Dictionary<(int x, int y), T> grid,
+        (int x, int y) location, Direction currentDirection)
+    {
+        var (x, y) = location;
+        
+        
+        if (grid.ContainsKey((x, y - 1)) && currentDirection != Direction.South) yield return (x, y - 1);
+        if (grid.ContainsKey((x, y + 1)) && currentDirection != Direction.North) yield return (x, y + 1);
+        if (grid.ContainsKey((x - 1, y)) && currentDirection != Direction.East) yield return (x - 1, y);
+        if (grid.ContainsKey((x + 1, y)) && currentDirection != Direction.West) yield return (x + 1, y);
+    }
+    
+    public enum Direction
+    {
+        North,
+        South,
+        East,
+        West
+    }
 }
