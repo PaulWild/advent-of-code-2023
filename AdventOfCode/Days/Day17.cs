@@ -38,7 +38,7 @@ public class AStarSearch(Dictionary<Location, int> costMap, int part) : AStarSea
                 case 2 when currentNode.DirectionCount < 4 && directionCount == 1 && currentDirection != Grid.Direction.Unknown:
                 //can't go this way as we have moved 10 in one direction
                 case 2 when directionCount > 10:
-                    continue;
+                    break;
                 default:
                     yield return new Node(Location: neighbour, DirectionCount: directionCount, Direction: newDirection);
                     break;

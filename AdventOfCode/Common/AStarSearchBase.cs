@@ -41,7 +41,7 @@ public abstract class AStarSearch<T,TS> where T : Node<TS> where TS : notnull
 
             foreach (var newNode in NextNodes(node))
             {
-                var newCost = H(newNode, end) + G(currentCost, newNode);
+                var newCost = G(currentCost, newNode);
 
                 if (Equals(node.Location, end))
                 {
@@ -51,7 +51,7 @@ public abstract class AStarSearch<T,TS> where T : Node<TS> where TS : notnull
                 if ((!costs.TryGetValue(newNode, out var value) || value <= newCost) &&
                     costs.ContainsKey(newNode)) continue;
                 
-                costs[newNode] = newCost;
+                costs[newNode] =  newCost;
                 cameFrom[newNode] = node;
                 openSet.Enqueue(newNode, newCost + H(newNode, end));
             }
