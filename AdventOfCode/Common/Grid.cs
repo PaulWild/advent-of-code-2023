@@ -1,4 +1,4 @@
-
+global using Location = (int x, int y);
 namespace AdventOfCode.Common;
 
 public static class Grid
@@ -81,9 +81,15 @@ public static class Grid
     
     public enum Direction
     {
+        Unknown,
         North,
         South,
         East,
         West
+    }
+    
+    private static int ManhattanDistance(Location a, Location b)
+    {
+        return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
     }
 }

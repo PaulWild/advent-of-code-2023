@@ -1,6 +1,6 @@
 using AdventOfCode.Common;
 using Delta = (int dx, int dy);
-using Location = (int x, int y);
+
 
 namespace AdventOfCode.Days;
 
