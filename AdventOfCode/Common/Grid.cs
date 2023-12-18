@@ -17,7 +17,7 @@ public static class Grid
             }
         }
     }
-    
+
     public static IEnumerable<(int x, int y)> DirectNeighbours<T>(this Dictionary<(int x, int y), T> grid,
         (int x, int y) location)
     {
