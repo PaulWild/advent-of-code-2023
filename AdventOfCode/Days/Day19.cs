@@ -1,98 +1,81 @@
-using System.Data;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Days;
 
+public record Instrument(int X, int M, int A, int S);
+
 public partial class Day19 : ISolution
 {
-    public record Instrument(int x, int m, int a, int s);
-
-    public record Instruction(string? property, string? comparison, int? value, string destination);
+    public record Instruction(string? Property, string? Comparison, int? Value, string Destination);
     
     public string PartOne(IEnumerable<string> input)
     {
         var (instruments, instructions) = ParseInput(input);
-
+        var tree = BuildTree(instructions["in"], instructions);
+        
         var acceptedInstruments = from instrument in instruments
-            let accepted = GradeInstrument(instrument, instructions)
+            let accepted = tree.GradeInstrument(instrument)
             where accepted
             select instrument;
 
-        return acceptedInstruments.Select(x => x.x + x.a + x.s + x.m).Sum().ToString();
-    }
-
-    private bool GradeInstrument(Instrument instrument, Dictionary<string, List<Instruction>> instructions)
-    {
-        var instructionName = "in";
-
-        while (true)
-        {
-            Lol:
-            foreach (var instruction in instructions[instructionName])
-            {
-                if (instruction.property == null)
-                {
-                    switch (instruction.destination)
-                    {
-                        case "A":
-                            return true;
-                        case "R":
-                            return false;
-                        default:
-                            instructionName = instruction.destination;
-                            goto Lol;
-                    }
-                }
-
-                var passed = InstructionPassed(instrument, instruction);
-
-                if (!passed) continue;
-
-                switch (instruction.destination)
-                {
-                    case "A":
-                        return true;
-                    case "R":
-                        return false;
-                    default:
-                        instructionName = instruction.destination;
-                        goto Lol;
-                }
-
-
-            }
-        }
-    }
-
-    private static bool InstructionPassed(Instrument instrument, Instruction instruction)
-    {
-        var passed = false;
-        passed = instruction.comparison switch
-        {
-            ">" => instruction.property switch
-            {
-                "x" => instrument.x > instruction.value,
-                "m" => instrument.m > instruction.value,
-                "a" => instrument.a > instruction.value,
-                "s" => instrument.s > instruction.value,
-                _ => passed
-            },
-            "<" => instruction.property switch
-            {
-                "x" => instrument.x < instruction.value,
-                "m" => instrument.m < instruction.value,
-                "a" => instrument.a < instruction.value,
-                "s" => instrument.s < instruction.value,
-                _ => passed
-            },
-            _ => passed
-        };
-        return passed;
+        return acceptedInstruments.Select(x => x.X + x.A + x.S + x.M).Sum().ToString();
     }
 
     public string PartTwo(IEnumerable<string> input)
     {
-        throw new NotImplementedException();
+        var (_,instructions) = ParseInput(input);
+        var tree = BuildTree(instructions["in"], instructions);
+        
+        return tree.Combinations(new MinMax(1, 4_000),new MinMax(1, 4_000),new MinMax(1, 4_000),new MinMax(1, 4_000))
+            .Select(x => MinMaxDiff(x.x) * MinMaxDiff(x.m) * MinMaxDiff(x.a) * MinMaxDiff(x.s))
+            .Sum().ToString();
+
+    }
+
+    private static long MinMaxDiff(MinMax val)
+    {
+        if (val is { Min: 0, Max: 0 })
+        {
+            return 0;
+        }
+
+        return val.Max - val.Min + 1;
+    }
+
+    private static Tree BuildTree(List<Instruction> instructions,
+        IReadOnlyDictionary<string, List<Instruction>> instructionDictionary)
+    {
+        var tree = new Tree();
+        var (property, comparison, value, destination) = instructions.First();
+
+        if (property == null)
+        {
+            switch (destination)
+            {
+                case "A":
+                    tree.Accepted = true;
+                    return tree;
+                case "R":
+                    tree.Accepted = false;
+                    return tree;
+                default:
+                    return BuildTree(instructionDictionary[destination], instructionDictionary);
+            }
+        }
+
+        tree.ComparisonType = comparison;
+        tree.ComparisonValue = value;
+        tree.ComparisonProperty = property;
+
+        tree.Left = destination switch
+        {
+            "A" => new Tree() { Accepted = true },
+            "R" => new Tree() { Accepted = false },
+            _ => BuildTree(instructionDictionary[destination], instructionDictionary)
+        };
+        tree.Right = BuildTree(instructions.Skip(1).ToList(), instructionDictionary);
+
+        return tree;
     }
     
     public int Day => 19;
@@ -146,4 +129,153 @@ public partial class Day19 : ISolution
     
     [GeneratedRegex("(?<instrumentProperty>[a-z])+(?<condition>[><])(?<value>[0-9]+)")]
     private static partial Regex InstrumentRegex();
+}
+
+public record MinMax(int Min, int Max);
+
+
+public class Tree
+{
+    public Tree? Left;
+    public Tree? Right;
+    public int? ComparisonValue;
+    public string? ComparisonProperty;
+    public string? ComparisonType;
+    public bool? Accepted;
+
+    private bool InstructionPassed(Instrument instrument)
+    {
+        return ComparisonType switch
+        {
+            ">" => ComparisonProperty switch
+            {
+                "x" => instrument.X > ComparisonValue,
+                "m" => instrument.M > ComparisonValue,
+                "a" => instrument.A > ComparisonValue,
+                "s" => instrument.S > ComparisonValue,
+                _ => false
+            },
+            "<" => ComparisonProperty switch
+            {
+                "x" => instrument.X < ComparisonValue,
+                "m" => instrument.M < ComparisonValue,
+                "a" => instrument.A < ComparisonValue,
+                "s" => instrument.S < ComparisonValue,
+                _ => false
+            },
+            _ => false
+        };
+    }
+
+    private (MinMax left, MinMax right) NewMinMax(MinMax val, string part)
+    {
+        if (part != ComparisonProperty)
+        {
+            return (val, val);
+        }
+        if (val is { Max: 0, Min: 0 })
+        {
+            return (val, val);
+        }
+        
+        switch (ComparisonType)
+        {
+            case ">":
+            {
+                MinMax left;
+                if (val.Max <= ComparisonValue)
+                {
+                    left = new MinMax(0, 0);
+                }
+                else
+                {
+                    var min = val.Min > ComparisonValue ? val.Min : ComparisonValue+1;
+                    var max = val.Max;
+                    left = new MinMax(min!.Value, max);
+                }
+
+
+                MinMax right;
+                if (val.Min > ComparisonValue)
+                {
+                    right = new MinMax(0, 0);
+                }
+                else
+                {
+                    var max = val.Max <= ComparisonValue ? val.Max : ComparisonValue;
+                    var min = val.Min;
+                    right = new MinMax(min, max!.Value);
+                }
+            
+                return (left, right);
+            }
+            case "<":
+            {
+                MinMax left;
+                if (val.Min >= ComparisonValue)
+                {
+                    left = new MinMax(0, 0);
+                }
+                else
+                {
+                    var min = val.Min;
+                    var max = val.Max < ComparisonValue ? val.Max : ComparisonValue-1;
+                    left = new MinMax(min, max!.Value);
+                }
+
+
+                MinMax right;
+                if (val.Max < ComparisonValue)
+                {
+                    right = new MinMax(0, 0);
+                }
+                else
+                {
+                    var max = val.Max; 
+                    var min = val.Min >= ComparisonValue ? val.Min : ComparisonValue;
+                    right = new MinMax(min!.Value, max);
+                }
+            
+                return (left, right);
+            }
+        }
+
+        throw new Exception("nope");
+    }
+    
+    public List<(MinMax x,MinMax m,MinMax a, MinMax s)> Combinations(MinMax x, MinMax m,MinMax a, MinMax s)
+    {
+        switch (Accepted)
+        {
+            case true:
+                return [(x,m,a,s)];
+            case false:
+                return [];
+        }
+
+        var xs = NewMinMax(x,"x");
+        var ms = NewMinMax(m, "m");
+        var aas = NewMinMax(a, "a");
+        var ss = NewMinMax(s, "s");
+
+        var result = Left!.Combinations(xs.left, ms.left, aas.left, ss.left);
+        result.AddRange(Right!.Combinations(xs.right, ms.right, aas.right, ss.right));
+        return result;
+    }
+    
+    public bool GradeInstrument(Instrument instrument)
+    {
+        switch (Accepted)
+        {
+            case true:
+                return true;
+            case false:
+                return false;
+            default:
+            {
+                var instructionPassed = InstructionPassed(instrument);
+                return instructionPassed ? Left!.GradeInstrument(instrument) : Right!.GradeInstrument(instrument);
+            }
+        }
+    }
 }
