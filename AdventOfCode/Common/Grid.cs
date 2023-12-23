@@ -29,6 +29,20 @@ public static class Grid
         if (grid.ContainsKey((x + 1, y))) yield return (x + 1, y);
     }
     
+    public static IEnumerable<(int x, int y)> DirectNeighboursWithSlopes<T>(this Dictionary<(int x, int y), T> grid,
+        (int x, int y) location)
+    {
+        var (x, y) = location;
+        
+        if (grid.ContainsKey((x, y - 1)) && grid[(x, y-1)].Equals('.') || grid.ContainsKey((x, y - 1)) && grid[(x, y-1)].Equals('^')) yield return (x, y - 1);
+        
+        if (grid.ContainsKey((x, y + 1)) && grid[(x, y+1)].Equals('.') || grid.ContainsKey((x, y+ 1)) && grid[(x, y+1)].Equals('v')) yield return (x, y + 1);
+        
+        if (grid.ContainsKey((x - 1, y)) && grid[(x-1, y)].Equals('.') || grid.ContainsKey((x-1, y)) && grid[(x-1, y)].Equals('<')) yield return (x - 1, y);
+        
+        if (grid.ContainsKey((x + 1, y)) && grid[(x+1, y)].Equals('.') || grid.ContainsKey((x+1, y)) && grid[(x+1, y)].Equals('>')) yield return (x + 1, y);
+        
+    }
 
 
     //C# % operator is not a fucking modulus operator 
