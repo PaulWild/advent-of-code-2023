@@ -28,6 +28,42 @@ public static class Grid
         if (grid.ContainsKey((x - 1, y))) yield return (x - 1, y);
         if (grid.ContainsKey((x + 1, y))) yield return (x + 1, y);
     }
+    
+
+
+    //C# % operator is not a fucking modulus operator 
+    static int Mod(int x, int m) {
+        return (x%m + m)%m;
+    }
+    public static IEnumerable<(int x, int y)> InfiniteDirectNeighbours<T>(this Dictionary<(int x, int y), T> grid,
+        (int x, int y) location, int maxX, int maxY)
+    {
+        var x = location.x;
+        var y = location.y;
+
+        var yPlus = location.y + 1;
+        var yMinus = location.y - 1;
+
+        var xPlus = location.x + 1;
+        var xMinus = location.x - 1;
+
+        var xW = Mod(x, (maxX+1));
+        var yW = Mod(y, (maxY+1));
+        
+        var xPlusW = Mod(xPlus,(maxX+1));
+        var xMinusW = Mod(xMinus , (maxX+1));
+
+        var yPlusW = Mod(yPlus, (maxY+1));
+        var yMinusW =  Mod(yMinus, (maxY+1));
+        
+        // Console.WriteLine($"x: {x}, xw: {xW}, xPlus: {xPlusW}, xMinus: {xMinusW}");
+
+        
+        if (grid.ContainsKey((xW, yMinusW))) yield return (x, yMinus);
+        if (grid.ContainsKey((xW, yPlusW))) yield return (x, yPlus);
+        if (grid.ContainsKey((xMinusW, yW))) yield return (xMinus, y);
+        if (grid.ContainsKey((xPlusW, yW))) yield return (xPlus, y);
+    }
 
     public static IEnumerable<(int x, int y)> Neighbours2(int x, int y)
     {
