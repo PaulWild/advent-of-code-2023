@@ -7,15 +7,12 @@ public class Day20 : ISolution
         var processor = CreateCircuit(input, out var nodes);
         var start = nodes["broadcaster"];
         
-
-        var wtf = new List<string>();
         for (int i = 0; i < 1000; i++)
         {
             start.Receive(PulseType.Low, "");
             while (processor.Count > 0)
             {
                 var node = processor.Dequeue();
-                wtf.Add(node);
                 nodes[node].Send();
             }
         }
@@ -80,7 +77,7 @@ public class Day20 : ISolution
         var processor = CreateCircuit(input, out var nodes);
         var start = nodes["broadcaster"];
         
-        //Four conjuction boxes are connected to the final conjuction box 
+        //Four conjunction boxes are connected to the final conjunction box 
         //js, qs, dt, ts
         //All have stable loop.
         List<string> conjunctionBoxes = ["js", "qs", "dt", "ts"];
@@ -116,9 +113,9 @@ public class Day20 : ISolution
 
         while (b != 0)
         {
-            var (_, divisior) = Math.DivRem(a, b);
+            var (_, divisor) = Math.DivRem(a, b);
             a = b;
-            b = divisior;
+            b = divisor;
         }
 
         return a;
@@ -266,15 +263,11 @@ internal class Conjunction(
     public List<string> Connected { get; } = connected;
 }
 
-internal class Output : IModule
+internal class Output(string thisNode) : IModule
 {
-    public Output(string node)
-    {
-        Node = node;
-    }
-    public string Node { get; }
-    public int ReceivedLowPulses { get; private set; } = 0;
-    public int ReceivedHighPulses { get;private set; } = 0;
+    public string Node { get; } = thisNode;
+    public int ReceivedLowPulses { get; private set; }
+    public int ReceivedHighPulses { get;private set; }
     public void Receive(PulseType pulseType, string node)
     {
         if (pulseType == PulseType.High)
@@ -292,7 +285,7 @@ internal class Output : IModule
         throw new NotImplementedException();
     }
 
-    public List<string> Connected { get; }
+    public List<string> Connected { get; } = [];
 }
 internal class Broadcast(
     List<string> connected,

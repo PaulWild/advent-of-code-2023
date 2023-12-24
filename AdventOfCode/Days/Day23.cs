@@ -11,7 +11,7 @@ public class Day23 : ISolution
         var maxY = map.Keys.Select(x => x.y).Max();
         var end = map.First(loc => loc.Key.y == maxY).Key;
 
-        var paths = GetPathCounts(start, (start.x, start.y-1), 0, map, end, (map,location) => map.DirectNeighboursWithSlopes(location));
+        var paths = GetPathCounts(start, (start.x, start.y-1), 0, map, end, (m,location) => m.DirectNeighboursWithSlopes(location));
         return paths.Max().ToString();
     }
     
@@ -41,10 +41,16 @@ public class Day23 : ISolution
 
     }
 
-    public List<int> PathLengths(Location currentNode, Dictionary<Location, Dictionary<Location, int>> graph,
-        HashSet<Location> visited, int currentPathLength, Location end)
+    private static IEnumerable<int> PathLengths(Location currentNode, IReadOnlyDictionary<Location, Dictionary<Location, int>> graph,
+        IReadOnlySet<Location> visited, int currentPathLength, Location end)
     {
         var vertices = graph[currentNode];
+        //If on the node that goes to the end, make it go to the end, other paths will never finish
+        if (vertices.Any(x => x.Key == end))
+        {
+            vertices = vertices.Where(kvp => kvp.Key == end)
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
 
         var toReturn = new List<int>();
         foreach (var vertex in vertices)
@@ -54,7 +60,7 @@ public class Day23 : ISolution
             {
                 
             }
-            //end wahoo
+            //end 
             else if (vertex.Key == end)
             {
                 toReturn.Add(currentPathLength + vertex.Value);
@@ -70,13 +76,13 @@ public class Day23 : ISolution
         return toReturn;
     }
 
-    public HashSet<Location> FindNodes(Dictionary<Location, char> map)
+    private static HashSet<Location> FindNodes(Dictionary<Location, char> map)
     {
         return map.Keys.Where(location => map.DirectNeighbours(location).Count(neighbour => map[neighbour] != '.') > 1).ToHashSet();
     }
 
 
-    public void GetVertices(
+    private static void GetVertices(
         Location node, 
         Location previous, 
         Dictionary<Location, char> map, 
@@ -98,8 +104,8 @@ public class Day23 : ISolution
             }
         }
     }
-    
-    public List<int> GetPathCounts(Location currentLocation, 
+
+    private static IEnumerable<int> GetPathCounts(Location currentLocation, 
         Location previousLocation, 
         int currentPathLength,
         Dictionary<Location,char> map, 

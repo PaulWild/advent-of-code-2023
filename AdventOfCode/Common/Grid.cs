@@ -34,13 +34,10 @@ public static class Grid
     {
         var (x, y) = location;
         
-        if (grid.ContainsKey((x, y - 1)) && grid[(x, y-1)].Equals('.') || grid.ContainsKey((x, y - 1)) && grid[(x, y-1)].Equals('^')) yield return (x, y - 1);
-        
-        if (grid.ContainsKey((x, y + 1)) && grid[(x, y+1)].Equals('.') || grid.ContainsKey((x, y+ 1)) && grid[(x, y+1)].Equals('v')) yield return (x, y + 1);
-        
-        if (grid.ContainsKey((x - 1, y)) && grid[(x-1, y)].Equals('.') || grid.ContainsKey((x-1, y)) && grid[(x-1, y)].Equals('<')) yield return (x - 1, y);
-        
-        if (grid.ContainsKey((x + 1, y)) && grid[(x+1, y)].Equals('.') || grid.ContainsKey((x+1, y)) && grid[(x+1, y)].Equals('>')) yield return (x + 1, y);
+        if (grid.ContainsKey((x, y - 1)) && grid[(x, y-1)]!.Equals('.') || grid.ContainsKey((x, y - 1)) && grid[(x, y-1)]!.Equals('^')) yield return (x, y - 1);
+        if (grid.ContainsKey((x, y + 1)) && grid[(x, y+1)]!.Equals('.') || grid.ContainsKey((x, y+ 1)) && grid[(x, y+1)]!.Equals('v')) yield return (x, y + 1);
+        if (grid.ContainsKey((x - 1, y)) && grid[(x-1, y)]!.Equals('.') || grid.ContainsKey((x-1, y)) && grid[(x-1, y)]!.Equals('<')) yield return (x - 1, y);
+        if (grid.ContainsKey((x + 1, y)) && grid[(x+1, y)]!.Equals('.') || grid.ContainsKey((x+1, y)) && grid[(x+1, y)]!.Equals('>')) yield return (x + 1, y);
         
     }
 
@@ -136,10 +133,5 @@ public static class Grid
         South,
         East,
         West
-    }
-    
-    private static int ManhattanDistance(Location a, Location b)
-    {
-        return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
     }
 }
