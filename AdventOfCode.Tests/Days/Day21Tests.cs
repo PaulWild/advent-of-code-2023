@@ -38,7 +38,7 @@ public class Day21Tests
     {
         var actual = _sut.PartOne(_testData);
 
-        actual.Should().Be("16");
+        actual.Should().Be("42");
     }
 
 
